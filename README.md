@@ -18,4 +18,6 @@ Created for the Prosoft calendar-test using: [Angular CLI](https://github.com/an
 
 - Solved bug with weekends.
 - Add rollover label for holidays.
+- Improve http request error handle.
+- Implement unit and e2e tests.
 - Improve CSS.
