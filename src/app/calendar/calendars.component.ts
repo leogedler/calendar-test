@@ -22,18 +22,18 @@ export class CalendarsComponent implements OnInit {
     height: 350,
     fixedWeekCount : false,
     editable: false,
-    eventLimit: false, // allow "more" link when too many events
+    eventLimit: false,
     events: [
 
     ]
   }
-
   myDatePickerOptions: IMyDpOptions = {
       dateFormat: 'dd/mm/yyyy',
       markCurrentDay: false
   };
-
   startDate: Object = { };
+  days:any;
+  country:any;
 
   constructor(private appService: AppService) { }
 
