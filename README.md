@@ -12,6 +12,7 @@ Created for the Prosoft calendar-test using: [Angular CLI](https://github.com/an
 # Bugs
 
 - All weekends are coloured yellow even though they are part of a date range selected or holiday.
+- Holidays only appear in the current year.
 
 
 # Things you would do if I had more time to complete the task.
