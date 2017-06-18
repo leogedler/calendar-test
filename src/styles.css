@@ -2,3 +2,11 @@
 
 /* Calendar */
 @import url('http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css');
+
+
+.fc-sun { 
+    background-color: yellow !important 
+}
+.fc-sat { 
+    background-color: yellow !important 
+}

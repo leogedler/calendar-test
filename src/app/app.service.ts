@@ -9,7 +9,7 @@ export class AppService {
 
 
     // Get all method
-    getHoliday(country:string, year:string = '2016'): Observable<any> {
+    getHoliday(country:string = 'US', year:string = '2016'): Observable<any> {
         const parms = new URLSearchParams();
         parms.set('key', '810d7c77-b0b1-4756-ad13-e958435897f9');
         parms.set('country', country);

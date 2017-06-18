@@ -1,6 +1,8 @@
 import { AppService } from './../app.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ap-angular2-fullcalendar';
+import { IMyDpOptions, IMyDateModel } from 'mydatepicker';
+declare let moment: any;
 
 @Component({
   selector: 'app-calendars',
@@ -19,42 +21,58 @@ export class CalendarsComponent implements OnInit {
     },
     height: 350,
     fixedWeekCount : false,
-    editable: true,
-    eventLimit: true, // allow "more" link when too many events
+    editable: false,
+    eventLimit: false, // allow "more" link when too many events
     events: [
-      {title:'evento 1', start:'2017-06-09'},
-      {title:'evento 1', start:'2017-06-10'},
-      {title:'evento 1', start:'2017-06-16'}
+
     ]
   }
+
+  myDatePickerOptions: IMyDpOptions = {
+      dateFormat: 'dd/mm/yyyy',
+      markCurrentDay: false
+  };
+
+  startDate: Object = { };
 
   constructor(private appService: AppService) { }
 
   ngOnInit() {
-    // this.appService.getHoliday('US', '2016').subscribe((response:any)=>{
-    //   console.log('response', response);
-    // },(error:any)=>{
-    //   console.log('error', error);
-    // })
+
+  }
+
+
+  onSubmit(values:any){
+    console.log(values);
+
+    this.appService.getHoliday(values.country).subscribe((response:any)=>{
+      console.log(response);
+      this.renderCalendar(values, response.holidays);
+    })
+    
+  }
+
+  renderCalendar(values:any, holidays:any) {
+    this.calendar.fullCalendar('destroy');
 
     this.calendar.fullCalendar({
-        dayRender: function (date, cell) {
-            
-            var today = new Date();
-            var end = new Date();
-            end.setDate(today.getDate()+7);
-            cell.css("background-color", "red");
-            console.log(date);
-            // if (date.getDate() === today.getDate()) {
-            //     cell.css("background-color", "red");
-            // }
-            
-            if(date > today && date <= end) {
-                cell.css("background-color", "yellow");
-            }
-          
-        }   
-    })
+      dayRender: function (date, cell) {
+
+        let start = values.startDate.jsdate;
+        let end = new Date(values.startDate.jsdate);
+        end.setDate(start.getDate()+values.days);
+
+        if(date >= start && end > date ) {
+            cell.css("background-color", "#A0EB8E");
+        }
+
+        let day = moment(date._d).format('YYYY-MM-DD');
+        if(holidays[day]){
+          cell.css("background-color", "#FFA500");
+        }
+      }   
+    });
+    this.calendar.fullCalendar('gotoDate', values.startDate.jsdate);
   }
 
 }
